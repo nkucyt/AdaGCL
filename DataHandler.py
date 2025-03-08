@@ -11,11 +11,11 @@ import torch.utils.data as dataloader
 class DataHandler:
 	def __init__(self):
 		if args.data == 'yelp':
-			predir = './Datasets/sparse_yelp/'
+			predir = '/kaggle/working/AdaGCL/Datasets/sparse_yelp/'
 		elif args.data == 'lastfm':
-			predir = './Datasets/lastFM/'
+			predir = '/kaggle/working/AdaGCL/Datasets/lastFM/'
 		elif args.data == 'beer':
-			predir = './Datasets/beerAdvocate/'
+			predir = '/kaggle/working/AdaGCL/Datasets/beerAdvocate/'
 		self.predir = predir
 		self.trnfile = predir + 'trnMat.pkl'
 		self.tstfile = predir + 'tstMat.pkl'
