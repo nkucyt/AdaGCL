@@ -66,12 +66,14 @@ class Coach:
 		encoder = vgae_encoder().cuda()
 		decoder = vgae_decoder().cuda()
 		self.generator_1 = vgae(encoder, decoder).cuda()
-		self.generator_2 = DenoisingNet(self.model.getGCN(), self.model.getEmbeds()).cuda()
-		self.generator_2.set_fea_adj(args.user+args.item, deepcopy(self.handler.torchBiAdj).cuda())
+		self.generator_2 = vgae(encoder, decoder).cuda()
+		#self.generator_2 = DenoisingNet(self.model.getGCN(), self.model.getEmbeds()).cuda()
+		#self.generator_2.set_fea_adj(args.user+args.item, deepcopy(self.handler.torchBiAdj).cuda())
 
 		self.opt = torch.optim.Adam(self.model.parameters(), lr=args.lr, weight_decay=0)
 		self.opt_gen_1 = torch.optim.Adam(self.generator_1.parameters(), lr=args.lr, weight_decay=0)
-		self.opt_gen_2 = torch.optim.Adam(filter(lambda p: p.requires_grad, self.generator_2.parameters()), lr=args.lr, weight_decay=0, eps=args.eps)
+		self.opt_gen_2 = torch.optim.Adam(self.generator_2.parameters(), lr=args.lr, weight_decay=0)
+		#self.opt_gen_2 = torch.optim.Adam(filter(lambda p: p.requires_grad, self.generator_2.parameters()), lr=args.lr, weight_decay=0, eps=args.eps)
 
 	def trainEpoch(self, temperature):
 		trnLoader = self.handler.trnLoader
@@ -86,7 +88,7 @@ class Coach:
 
 			self.opt.zero_grad()
 			self.opt_gen_1.zero_grad()
-			self.opt_gen_2.zero_grad()
+			self..zero_grad()
 
 			ancs, poss, negs = tem
 			ancs = ancs.long().cuda()
@@ -138,7 +140,7 @@ class Coach:
 
 			self.opt.step()
 			self.opt_gen_1.step()
-			self.opt_gen_2.step()
+			self..step()
 
 			log('Step %d/%d: gen 1 : %.3f ; gen 2 : %.3f ; bpr : %.3f ; im : %.3f ; ib : %.3f ; reg : %.3f  ' % (
 				i, 
