@@ -88,7 +88,7 @@ class Coach:
 
 			self.opt.zero_grad()
 			self.opt_gen_1.zero_grad()
-			self..zero_grad()
+			self.zero_grad()
 
 			ancs, poss, negs = tem
 			ancs = ancs.long().cuda()
