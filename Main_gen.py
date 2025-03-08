@@ -140,7 +140,7 @@ class Coach:
 
 			self.opt.step()
 			self.opt_gen_1.step()
-			self..step()
+			self.step()
 
 			log('Step %d/%d: gen 1 : %.3f ; gen 2 : %.3f ; bpr : %.3f ; im : %.3f ; ib : %.3f ; reg : %.3f  ' % (
 				i, 
